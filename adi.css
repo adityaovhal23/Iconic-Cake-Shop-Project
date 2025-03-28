@@ -1,0 +1,77 @@
+.login {
+    border: 1px solid black;
+    width: 600px;
+    height: 700px;
+    background: url('https://images.unsplash.com/photo-1555475660-3df469f5d6d7?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTZ8MTcwODI3Nnx8ZW58MHx8fHx8');
+    color: white !important;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.75);
+    background-size: cover;
+    margin: 0 auto;
+    background-position: center;
+    overflow: hidden;
+}
+
+form {
+    display: block;
+    box-sizing: border-box;
+    padding: 40px;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: brightness(40%);
+    flex-direction: column;
+    display: flex;
+    gap: 5px;
+}
+
+h1 {
+    font-weight: normal !important;
+    font-size: 24px;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+    margin-bottom: 60px;
+    font-weight: 900;
+    text-align: center;
+
+}
+
+label {
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    font-size: 20px;
+    letter-spacing: 2px;
+    padding-left: 10px;
+
+}
+
+input {
+    background: rgba(255, 255, 255, 0.3);
+    height: 40px;
+    line-height: 40px;
+    border-radius: 20px;
+    padding: 20px;
+    border: none;
+    margin-bottom: 20px;
+    color: white;
+}
+
+button {
+    background: rgb(45, 126, 231);
+    height: 65px;
+    line-height: 40px;
+    border-radius: 40px;
+    border: none;
+    margin: 10px 0px;
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.3);
+    color: white !important;
+    font-weight: 800;
+    font-size: 19px;
+    text-transform: uppercase;
+    transition: all ease-in;
+  
+}
+
+button:hover{
+    background: green;
+    color: white;
+    font-weight: 800;
+}

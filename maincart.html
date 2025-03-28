@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Heaven - Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #F5EFF1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #F5EFF1;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: black;
+        }
+
+        .logo i {
+            color: #FF4500;
+            font-size: 1.7rem;
+            margin-right: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: #FF00FF;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.3s ease-in-out, color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #800080;
+            color: white;
+        }
+
+        .icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .icon-circle {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease-in-out, box-shadow 0.3s;
+        }
+
+        .icon-circle i {
+            font-size: 1.7rem;
+            color: black;
+        }
+
+        .icon-circle:hover {
+            transform: rotate(360deg);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Cart Page Layout */
+        .cart-container {
+            width: 70%;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cart-title {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .item-details {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .item-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .item-price {
+            font-size: 1.2rem;
+            color: #FF4500;
+            margin-top: 3px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quantity-btn {
+            width: 35px;
+            height: 35px;
+            font-size: 1.4rem;
+            background: #FF4500;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: #cc3700;
+        }
+
+        .quantity {
+            font-size: 1.4rem;
+            font-weight: bold;
+            min-width: 25px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            background: #FF00FF;
+            color: white;
+            padding: 8px 15px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background: #800080;
+        }
+
+        .total-container {
+            text-align: right;
+            margin-top: 20px;
+            padding-top: 10px;
+        }
+
+        .total-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            background: #32CD32;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: #228B22;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-birthday-cake"></i> Sweet <br> Heaven
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Order</a></li>
+            <li><a href="#">Best Seller</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Menu</a></li>
+        </ul>
+        <div class="icons">
+            <div class="icon-circle"><i class="fas fa-search"></i></div>
+            <div class="icon-circle"><i class="fas fa-heart"></i></div>
+            <div class="icon-circle"><i class="fas fa-shopping-cart"></i></div>
+            <div class="icon-circle"><i class="fas fa-user"></i></div>
+        </div>
+    </nav>
+
+    <!-- Cart Page -->
+    <div class="cart-container">
+        <div class="cart-title">🛒 Your Shopping Cart</div>
+        <div class="cart-item">
+            <img src="https://images.unsplash.com/photo-1606312618175-0c76ef1f22d8" alt="Cake">
+            <div class="item-details">
+                <div class="item-name">Chocolate Cake</div>
+                <div class="item-price">₹450</div>
+            </div>
+            <div class="quantity-controls">
+                <button class="quantity-btn">-</button>
+                <div class="quantity">1</div>
+                <button class="quantity-btn">+</button>
+            </div>
+            <button class="remove-btn">Remove</button>
+        </div>
+
+        <div class="total-container">
+            <div class="total-price">Total: ₹450</div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cartItemsContainer = document.querySelector(".cart-container");
+            const totalPriceElement = document.querySelector(".total-price");
+            const checkoutButton = document.querySelector(".checkout-btn");
+        
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        
+            function updateCart() {
+                cartItemsContainer.innerHTML = `<div class="cart-title">🛒 Your Shopping Cart</div>`;
+                
+                let total = 0;
+        
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML += `<p style="text-align: center; font-size: 1.5rem;">Your cart is empty 😢</p>`;
+                } else {
+                    cart.forEach((item, index) => {
+                        let itemTotal = item.price * item.quantity;
+                        total += itemTotal;
+        
+                        cartItemsContainer.innerHTML += `
+                            <div class="cart-item">
+                                <img src="${item.image}" alt="${item.name}">
+                                <div class="item-details">
+                                    <div class="item-name">${item.name}</div>
+                                    <div class="item-price">₹${item.price}</div>
+                                </div>
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn decrease" data-index="${index}">-</button>
+                                    <div class="quantity">${item.quantity}</div>
+                                    <button class="quantity-btn increase" data-index="${index}">+</button>
+                                </div>
+                                <button class="remove-btn" data-index="${index}">Remove</button>
+                            </div>
+                        `;
+                    });
+        
+                    cartItemsContainer.innerHTML += `
+                        <div class="total-container">
+                            <div class="total-price">Total: ₹${total}</div>
+                            <button class="checkout-btn">Proceed to Checkout</button>
+                        </div>
+                    `;
+                }
+        
+                localStorage.setItem("cart", JSON.stringify(cart));
+                totalPriceElement.textContent = `Total: ₹${total}`;
+            }
+        
+            cartItemsContainer.addEventListener("click", (e) => {
+                let index = e.target.dataset.index;
+                
+                if (e.target.classList.contains("increase")) {
+                    cart[index].quantity++;
+                } else if (e.target.classList.contains("decrease") && cart[index].quantity > 1) {
+                    cart[index].quantity--;
+                } else if (e.target.classList.contains("remove-btn")) {
+                    cart.splice(index, 1);
+                }
+        
+                updateCart();
+            });
+        
+            document.addEventListener("click", (e) => {
+                if (e.target.classList.contains("checkout-btn")) {
+                    localStorage.setItem("totalPrice", totalPriceElement.textContent.replace("Total: ₹", ""));
+                    window.location.href = "payment.html";
+                }
+            });
+        
+            updateCart();
+        });
+        </script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const cartItemsContainer = document.querySelector(".cart-container");
+                const totalPriceElement = document.querySelector(".total-price");
+            
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            
+                function updateCart() {
+                    cartItemsContainer.innerHTML = `<div class="cart-title">🛒 Your Shopping Cart</div>`;
+            
+                    let total = 0;
+            
+                    if (cart.length === 0) {
+                        cartItemsContainer.innerHTML += `<p style="text-align: center; font-size: 1.5rem;">Your cart is empty 😢</p>`;
+                    } else {
+                        cart.forEach((item, index) => {
+                            let itemTotal = item.price * item.quantity;
+                            total += itemTotal;
+            
+                            cartItemsContainer.innerHTML += `
+                                <div class="cart-item">
+                                    <img src="${item.image}" alt="${item.name}">
+                                    <div class="item-details">
+                                        <div class="item-name">${item.name}</div>
+                                        <div class="item-price">₹${item.price}</div>
+                                    </div>
+                                    <div class="quantity-controls">
+                                        <button class="quantity-btn decrease" data-index="${index}">-</button>
+                                        <div class="quantity">${item.quantity}</div>
+                                        <button class="quantity-btn increase" data-index="${index}">+</button>
+                                    </div>
+                                    <button class="remove-btn" data-index="${index}">Remove</button>
+                                </div>
+                            `;
+                        });
+            
+                        cartItemsContainer.innerHTML += `
+                            <div class="total-container">
+                                <div class="total-price">Total: ₹${total}</div>
+                                <button class="checkout-btn">Proceed to Checkout</button>
+                            </div>
+                        `;
+                    }
+            
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    totalPriceElement.textContent = `Total: ₹${total}`;
+                }
+            
+                cartItemsContainer.addEventListener("click", (e) => {
+                    let index = e.target.dataset.index;
+                    
+                    if (e.target.classList.contains("increase")) {
+                        cart[index].quantity++;
+                    } else if (e.target.classList.contains("decrease") && cart[index].quantity > 1) {
+                        cart[index].quantity--;
+                    } else if (e.target.classList.contains("remove-btn")) {
+                        cart.splice(index, 1);
+                    }
+            
+                    updateCart();
+                });
+            
+                document.addEventListener("click", (e) => {
+                    if (e.target.classList.contains("checkout-btn")) {
+                        localStorage.setItem("totalPrice", totalPriceElement.textContent.replace("Total: ₹", ""));
+                        window.location.href = "checkout.html";
+                    }
+                });
+            
+                updateCart();
+            });
+            
+            </script>
+            
+
+</body>
+</html>

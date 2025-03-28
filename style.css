@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('https://images7.alphacoders.com/129/1292925.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  
+}
+
+form {
+    display: flex;
+     margin:35px 200px 66px 950px;
+    flex-direction: column;
+    background: transparent;
+    width: 30vw;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 22px;
+    height: 43vh;
+    background-color: rbga(255,255,255,0.4);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    font-weight: bold;
+    
+
+}
+
+form h1 {
+    margin-bottom: 15px;
+    margin-top: 10px;
+    font-weight: 850;
+    color: #fff;
+    border-spacing: 10px;
+
+
+}
+
+input {
+    height: 80px;
+    margin-left: 2.8rem;
+    width: 34rem;
+    text-align: center;
+    border: .5px solid white;
+    border-radius: 24px;
+    color:white;
+    margin-bottom: 1rem;
+    padding-left: 20px;
+    background: transparent;
+}
+
+input::placeholder {
+    color: white;
+}
+
+button {
+    height: 2rem;
+    width: 8rem;
+    margin-left: 15rem;
+    border-radius: 3rem;
+
+}
+
+button:hover {
+    background: green;
+    color: white;
+}

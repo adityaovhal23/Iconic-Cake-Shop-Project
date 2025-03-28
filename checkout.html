@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Sweet Heaven</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #F5EFF1;
+        }
+
+        .checkout-container {
+            width: 50%;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.7rem;
+        }
+
+        .cart-items {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .price-details, .total {
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .total {
+            font-weight: bold;
+            color: #FF4500;
+        }
+
+        .payment-methods, .address-container {
+            margin-top: 20px;
+        }
+
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1.2rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .pay-now-btn {
+            width: 100%;
+            background: #FF00FF;
+            color: white;
+            padding: 15px;
+            font-size: 1.7rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .pay-now-btn:hover {
+            background: #800080;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: #32CD32;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="checkout-container">
+        <h2>Checkout</h2>
+        
+        <div class="cart-items" id="cart-items"></div>
+
+        <div class="price-details"><span>Subtotal:</span><span id="subtotal">₹0</span></div>
+        <div class="price-details"><span>Delivery Charge:</span><span>₹50</span></div>
+        <div class="total"><span>Total:</span><span id="total-price">₹50</span></div>
+
+        <div class="payment-methods">
+            <h3>Select Payment Method</h3>
+            <label><input type="radio" name="payment" value="upi" onclick="showPaymentFields()"> UPI</label>
+            <label><input type="radio" name="payment" value="bank" onclick="showPaymentFields()"> Bank Transfer</label>
+            <label><input type="radio" name="payment" value="cod" onclick="hidePaymentFields()"> Cash on Delivery</label>
+        </div>
+
+        <div id="upiField" class="hidden">
+            <label>Enter UPI ID:</label>
+            <input type="text" id="upiId" placeholder="example@upi">
+        </div>
+
+        <div id="bankField" class="hidden">
+            <label>Enter Bank Details:</label>
+            <input type="text" id="bankName" placeholder="Bank Name">
+            <input type="text" id="accountNumber" placeholder="Account Number">
+            <input type="text" id="ifscCode" placeholder="IFSC Code">
+        </div>
+
+        <div class="address-container">
+            <h3>Delivery Address</h3>
+            <textarea id="address" placeholder="Enter your address"></textarea>
+            <label><input type="checkbox" id="confirmAddress"> Confirm Address</label>
+        </div>
+
+        <button class="pay-now-btn" id="payNow">Pay Now</button>
+    </div>
+
+    <div class="popup" id="thankYouPopup">🎉 Thank you for ordering! 🎉</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cartContainer = document.getElementById("cart-items");
+            const subtotalElement = document.getElementById("subtotal");
+            const totalElement = document.getElementById("total-price");
+
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let subtotal = 0;
+            let deliveryCharge = 50;
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = "<p style='text-align: center; font-size: 1.5rem;'>Your cart is empty 😢</p>";
+            } else {
+                cart.forEach(item => {
+                    let itemTotal = item.price * item.quantity;
+                    subtotal += itemTotal;
+                    cartContainer.innerHTML += `<div class="cart-item"><span>${item.name} x${item.quantity}</span> <span>₹${itemTotal}</span></div>`;
+                });
+            }
+
+            subtotalElement.textContent = `₹${subtotal}`;
+            totalElement.textContent = `₹${subtotal + deliveryCharge}`;
+        });
+
+        function showPaymentFields() {
+            document.getElementById("upiField").classList.add("hidden");
+            document.getElementById("bankField").classList.add("hidden");
+
+            let selectedPayment = document.querySelector('input[name="payment"]:checked').value;
+            if (selectedPayment === "upi") {
+                document.getElementById("upiField").classList.remove("hidden");
+            } else if (selectedPayment === "bank") {
+                document.getElementById("bankField").classList.remove("hidden");
+            }
+        }
+
+        function hidePaymentFields() {
+            document.getElementById("upiField").classList.add("hidden");
+            document.getElementById("bankField").classList.add("hidden");
+        }
+
+        document.getElementById("payNow").addEventListener("click", () => {
+            let paymentMethod = document.querySelector('input[name="payment"]:checked');
+            let address = document.getElementById("address").value;
+            let confirmAddress = document.getElementById("confirmAddress").checked;
+
+            if (!paymentMethod) {
+                alert("Please select a payment method.");
+                return;
+            }
+
+            if (address.trim() === "") {
+                alert("Please enter your address.");
+                return;
+            }
+
+            if (!confirmAddress) {
+                alert("Please confirm your address.");
+                return;
+            }
+
+            document.getElementById("thankYouPopup").style.display = "block";
+            setTimeout(() => { window.location.href = "index.html"; }, 3000);
+        });
+    </script>
+
+</body>
+</html>
